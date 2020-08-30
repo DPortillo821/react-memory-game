@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: ['./src/index.tsx'],
@@ -45,7 +46,15 @@ module.exports = {
         hotOnly: true,
     },
 
-    plugins: [new webpack.HotModuleReplacementPlugin()],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            // injects bundle.js to our new index.html
+            inject: true,
+            // copys the content of the existing index.html to the new /build index.html
+            template: path.resolve('./public/index.html'),
+        }),
+    ],
 
     // Other options...
 }
