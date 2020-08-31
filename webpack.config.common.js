@@ -1,14 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
     entry: ['./src/index.tsx'],
-
-    mode: 'development',
-
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: 'source-map',
 
     module: {
         rules: [
@@ -36,25 +32,16 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/'),
         publicPath: './',
-        filename: 'bundle.js',
-    },
-
-    devServer: {
-        contentBase: path.join(__dirname, 'public/'),
-        port: 3000,
-        publicPath: 'http://localhost:3000/dist/',
-        hotOnly: true,
+        filename: '[name].[hash].js',
     },
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            // injects bundle.js to our new index.html
             inject: true,
-            // copys the content of the existing index.html to the new /build index.html
             template: path.resolve('./public/index.html'),
+            minify: false,
         }),
     ],
-
-    // Other options...
 }
