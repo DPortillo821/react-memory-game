@@ -6,7 +6,7 @@ import Card from './Card'
 
 const Wrapper = styled.div`
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(3, minmax(auto, 250px));
     row-gap: 1rem;
     column-gap: 1rem;

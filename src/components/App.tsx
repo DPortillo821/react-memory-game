@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `
 
 const App = () => {
-    const numCharacters = 9
+    const numCharacters = 12
 
     const [message, setMessage] = useState('')
     const [score, setScore] = useState(0)
@@ -69,8 +69,6 @@ const App = () => {
             setScore(score + 1)
         }
     }
-
-    // let innerHeight = window.innerHeight
 
     return (
         <Wrapper>
