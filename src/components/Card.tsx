@@ -2,7 +2,7 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const CardContainer = styled.div`
     background-color: #162447;
     display: grid;
     justify-items: center;
@@ -20,7 +20,11 @@ const Image = styled.img`
 `
 
 const Card = ({ imgUri, onCardClick }) => {
-    return <Wrapper onClick={onCardClick}>{<Image src={imgUri} />}</Wrapper>
+    return (
+        <CardContainer onClick={onCardClick}>
+            {<Image src={imgUri} />}
+        </CardContainer>
+    )
 }
 
 export default Card

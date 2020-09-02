@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import styled from 'styled-components'
 
 import Card from './Card'
 
-const Wrapper = styled.div`
+import { GameContext } from '../contexts/GameContext'
+
+import useCard from '../hooks/useCard'
+
+const CardListContainer = styled.div`
     display: grid;
     grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(3, minmax(auto, 250px));
@@ -16,17 +20,20 @@ const Wrapper = styled.div`
     padding: 1rem;
 `
 
-const CardList = ({ characters, onCardClick }) => {
+const CardList = () => {
+    const [state] = useContext<any>(GameContext)
+    const { tapCard } = useCard()
+
     return (
-        <Wrapper>
-            {characters.map((character) => (
+        <CardListContainer>
+            {state.characters.map((character) => (
                 <Card
                     key={character.id}
                     imgUri={character.imgUri}
-                    onCardClick={() => onCardClick(character)}
+                    onCardClick={() => tapCard(character)}
                 />
             ))}
-        </Wrapper>
+        </CardListContainer>
     )
 }
 

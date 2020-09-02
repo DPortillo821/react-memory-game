@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import styled from 'styled-components'
 
 import Stopwatch from './Stopwatch'
 
-const Wrapper = styled.div`
+import { GameContext } from '../contexts/GameContext'
+
+const StatBarContainer = styled.div`
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 2fr 1fr;
@@ -23,13 +25,15 @@ const Score = styled.p`
     font-size: 1rem;
 `
 
-const StatBar = ({ isStopwatchActive, message, score }) => {
+const StatBar = () => {
+    const [state] = useContext<any>(GameContext)
+
     return (
-        <Wrapper>
-            <Stopwatch isActive={isStopwatchActive} />
-            <Message>{message}</Message>
-            <Score>Score: {score}</Score>
-        </Wrapper>
+        <StatBarContainer>
+            <Stopwatch />
+            <Message>{state.message}</Message>
+            <Score>Score: {state.score}</Score>
+        </StatBarContainer>
     )
 }
 
