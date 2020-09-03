@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import CardList from './CardList'
 import StatBar from './StatBar'
+import MessageBar from './MessageBar'
 
 import { GameProvider } from '../contexts/GameContext'
 
@@ -20,6 +21,7 @@ const App = () => {
             <AppContainer>
                 <StatBar />
                 <CardList />
+                <MessageBar />
             </AppContainer>
         </GameProvider>
     )

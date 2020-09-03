@@ -17,7 +17,8 @@ export type Game = {
     hasWon: boolean
     isStopwatchActive: boolean
     message: string
-    score: number
+    currentScore: number
+    fastestCompletionTime: number
 }
 
 const GameContext = React.createContext([{}, () => {}])
@@ -25,12 +26,15 @@ const GameContext = React.createContext([{}, () => {}])
 const GameProvider = (props) => {
     const [state, setState] = useState<Game>({
         characterIdsClicked: [],
-        characters: getRandomSubarray(Characters, 12),
+        characters: getRandomSubarray(Characters, 9),
         hasLost: false,
         hasWon: false,
         isStopwatchActive: false,
-        message: '',
-        score: 0,
+        message: "Click every image. But don't click the same image twice!",
+        currentScore: 0,
+        fastestCompletionTime: parseInt(
+            localStorage.getItem('fastestCompletionTime') || '0'
+        ),
     })
 
     return (

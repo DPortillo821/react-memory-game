@@ -2,7 +2,9 @@ import React, { useContext, useState, useEffect } from 'react'
 
 import styled from 'styled-components'
 
-import { GameContext } from '../contexts/GameContext'
+import { GameContext, Game } from '../contexts/GameContext'
+
+import { formatTime } from '../utils/formattingUtils'
 
 const RunningTime = styled.p`
     color: white;
@@ -10,8 +12,8 @@ const RunningTime = styled.p`
 `
 
 const Stopwatch = () => {
-    const [state] = useContext<any>(GameContext)
-    const [runningTime, setRunningTime] = useState(0)
+    const [state, setState] = useContext<any>(GameContext)
+    const [runningTime, setRunningTime] = useState(state.runningTime || 0)
 
     useEffect(() => {
         let interval = 0
@@ -26,9 +28,19 @@ const Stopwatch = () => {
         return () => clearInterval(interval)
     }, [state.isStopwatchActive, runningTime])
 
-    const formatTime = (time) => {
-        return (time / 1000).toFixed(1)
-    }
+    useEffect(() => {
+        if (
+            state.hasWon &&
+            (state.fastestCompletionTime === 0 ||
+                runningTime < state.fastestCompletionTime)
+        ) {
+            setState((state: Game) => ({
+                ...state,
+                fastestCompletionTime: runningTime,
+            }))
+            localStorage.setItem('fastestCompletionTime', runningTime)
+        }
+    }, [state.hasWon])
 
     return <RunningTime>{formatTime(runningTime)}s</RunningTime>
 }

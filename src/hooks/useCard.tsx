@@ -34,7 +34,7 @@ const useCard = () => {
                 ],
                 characters: shuffleArray(state.characters),
                 isStopwatchActive: true,
-                score: state.score + 1,
+                currentScore: state.currentScore + 1,
             }))
             if (state.message.length > 0) {
                 setState((state: Game) => ({
@@ -49,10 +49,10 @@ const useCard = () => {
         setState((state: Game) => ({
             ...state,
             characterIdsClicked: [],
-            characters: getRandomSubarray(Characters, 12),
+            characters: getRandomSubarray(Characters, 9),
             hasLost: false,
             hasWon: false,
-            score: 0,
+            currentScore: 0,
         }))
     }
 

@@ -6,21 +6,24 @@ import Stopwatch from './Stopwatch'
 
 import { GameContext } from '../contexts/GameContext'
 
+import { formatTime } from '../utils/formattingUtils'
+
 const StatBarContainer = styled.div`
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     justify-content: space-around;
+    align-content: center;
     background-color: #1f4068;
 `
 
-const Message = styled.p`
+const Score = styled.p`
     color: white;
     font-size: 1rem;
 `
 
-const Score = styled.p`
+const FastestTime = styled.p`
     color: white;
     font-size: 1rem;
 `
@@ -31,8 +34,10 @@ const StatBar = () => {
     return (
         <StatBarContainer>
             <Stopwatch />
-            <Message>{state.message}</Message>
-            <Score>Score: {state.score}</Score>
+            <FastestTime>
+                Fastest Time: {formatTime(state.fastestCompletionTime)}s
+            </FastestTime>
+            <Score>Score: {state.currentScore}</Score>
         </StatBarContainer>
     )
 }
