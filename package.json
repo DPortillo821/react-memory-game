@@ -1,7 +1,7 @@
 {
-    "name": "react-memory-game",
+    "name": "star-wars-memory-game",
     "version": "1.0.0",
-    "description": "",
+    "description": "A Star Wars themed memory game",
     "main": "index.tsx",
     "scripts": {
         "start": "webpack-dev-server --host 0.0.0.0 --config=webpack.config.dev.js --open",
@@ -10,8 +10,8 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": "Daniel Portillo",
+    "license": "MIT",
     "dependencies": {
         "@types/react": "^16.9.46",
         "@types/react-dom": "^16.9.8",
