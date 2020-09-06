@@ -8,21 +8,20 @@ import MessageBar from './MessageBar'
 
 import { GameProvider } from '../contexts/GameContext'
 
-const AppContainer = styled.div`
+const Container = styled.div`
     display: grid;
-    grid-template-rows: 10% auto;
-    grid-template-columns: auto;
-    min-height: 80vh;
+    grid-template-rows: auto 8fr 1fr;
+    height: 100%;
 `
 
 const App = () => {
     return (
         <GameProvider>
-            <AppContainer>
+            <Container>
                 <StatBar />
                 <CardList />
                 <MessageBar />
-            </AppContainer>
+            </Container>
         </GameProvider>
     )
 }
