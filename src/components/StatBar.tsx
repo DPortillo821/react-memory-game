@@ -8,7 +8,7 @@ import { GameContext } from '../contexts/GameContext'
 
 import { formatTime } from '../utils/formattingUtils'
 
-const StatBarContainer = styled.div`
+const Container = styled.div`
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr 1fr;
@@ -32,13 +32,13 @@ const StatBar = () => {
     const [state] = useContext<any>(GameContext)
 
     return (
-        <StatBarContainer>
+        <Container>
             <Stopwatch />
             <FastestTime>
                 Fastest Time: {formatTime(state.fastestCompletionTime)}s
             </FastestTime>
             <Score>Score: {state.currentScore}</Score>
-        </StatBarContainer>
+        </Container>
     )
 }
 

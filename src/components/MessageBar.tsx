@@ -4,14 +4,13 @@ import styled from 'styled-components'
 
 import { GameContext } from '../contexts/GameContext'
 
-const MessageContainer = styled.div`
+const Container = styled.div`
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: auto;
     justify-content: center;
     align-content: center;
     background-color: #1f4068;
-    min-height: 100%;
 `
 
 const Message = styled.p`
@@ -23,9 +22,9 @@ const MessageBar = () => {
     const [state] = useContext<any>(GameContext)
 
     return (
-        <MessageContainer>
+        <Container>
             <Message>{state.message}</Message>
-        </MessageContainer>
+        </Container>
     )
 }
 
