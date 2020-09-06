@@ -8,7 +8,7 @@ import { GameContext } from '../contexts/GameContext'
 
 import useCard from '../hooks/useCard'
 
-const CardListContainer = styled.div`
+const Container = styled.div`
     display: grid;
     grid-template-rows: repeat(3, auto);
     grid-template-columns: repeat(3, minmax(auto, 250px));
@@ -25,7 +25,7 @@ const CardList = () => {
     const { tapCard } = useCard()
 
     return (
-        <CardListContainer>
+        <Container>
             {state.characters.map((character) => (
                 <Card
                     key={character.id}
@@ -33,7 +33,7 @@ const CardList = () => {
                     onCardClick={() => tapCard(character)}
                 />
             ))}
-        </CardListContainer>
+        </Container>
     )
 }
 
