@@ -6,15 +6,15 @@ import { shuffleArray, getRandomSubarray } from '../utils/arrayUtil'
 
 import { Characters } from '../data/Characters'
 
-const useCard = () => {
+const useGame = () => {
     const [state, setState] = useContext<any>(GameContext)
 
-    function tapCard(character: Character) {
+    function selectCard(character: Character) {
         if (state.characterIdsClicked.includes(character.id)) {
             setState((state: Game) => ({
                 ...state,
                 hasLost: true,
-                message: `o rip. You already clicked on ${character.name}`,
+                message: `Oh no! Did you forget you already clicked on ${character.name}?`,
             }))
         } else if (
             state.characterIdsClicked.length ===
@@ -23,7 +23,7 @@ const useCard = () => {
             setState((state: Game) => ({
                 ...state,
                 hasWon: true,
-                message: 'Oh dang, you won! Starting over...',
+                message: 'You won!',
             }))
         } else {
             setState((state: Game) => ({
@@ -50,9 +50,11 @@ const useCard = () => {
             ...state,
             characterIdsClicked: [],
             characters: getRandomSubarray(Characters, 9),
+            currentScore: 0,
             hasLost: false,
             hasWon: false,
-            currentScore: 0,
+            message: '',
+            runningTime: 0,
         }))
     }
 
@@ -65,19 +67,53 @@ const useCard = () => {
         let timeout = 0
         if (state.hasLost || state.hasWon) {
             timeout = setTimeout(() => {
-                setState((state: Game) => ({
-                    ...state,
-                    message: '',
-                }))
                 reset()
-            }, 2000)
+            }, 3000)
         }
         return () => clearInterval(timeout)
     }, [state.hasLost, state.hasWon])
 
+    useEffect(() => {
+        let interval = 0
+        if (state.isStopwatchActive) {
+            interval = setInterval(() => {
+                setState((state: Game) => ({
+                    ...state,
+                    runningTime: state.runningTime + 100,
+                }))
+            }, 100)
+        } else if (!state.isStopwatchActive && state.runningTime !== 0) {
+            clearInterval(interval)
+        }
+        return () => clearInterval(interval)
+    }, [state.isStopwatchActive, state.runningTime])
+
+    useEffect(() => {
+        if (
+            state.hasWon &&
+            (state.fastestCompletionTime === 0 ||
+                state.runningTime < state.fastestCompletionTime)
+        ) {
+            setState((state: Game) => ({
+                ...state,
+                fastestCompletionTime: state.runningTime,
+            }))
+            localStorage.setItem('fastestCompletionTime', state.runningTime)
+        }
+    }, [state.hasWon])
+
     return {
-        tapCard,
+        selectCard,
+        characterIdsClicked: state.characterIdsClicked,
+        characters: state.characters,
+        currentScore: state.currentScore,
+        fastestCompletionTime: state.fastestCompletionTime,
+        hasLost: state.hasLost,
+        hasWon: state.hasWon,
+        isStopwatchActive: state.isStopwatchActive,
+        message: state.message,
+        runningTime: state.runningTime,
     }
 }
 
-export default useCard
+export default useGame
