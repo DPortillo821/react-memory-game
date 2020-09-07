@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
 import Card from './Card'
 
-import { GameContext } from '../contexts/GameContext'
+import { Character } from '../contexts/GameContext'
 
-import useCard from '../hooks/useCard'
+import useGame from '../hooks/useGame'
 
 const Container = styled.div`
     display: grid;
@@ -21,16 +21,15 @@ const Container = styled.div`
 `
 
 const CardList = () => {
-    const [state] = useContext<any>(GameContext)
-    const { tapCard } = useCard()
+    const { selectCard, characters } = useGame()
 
     return (
         <Container>
-            {state.characters.map((character) => (
+            {characters.map((character: Character) => (
                 <Card
                     key={character.id}
-                    imgUri={character.imgUri}
-                    onCardClick={() => tapCard(character)}
+                    imgUrl={character.imgUrl}
+                    onClick={() => selectCard(character)}
                 />
             ))}
         </Container>

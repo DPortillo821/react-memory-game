@@ -1,13 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
-import { GameContext } from '../contexts/GameContext'
+import useGame from '../hooks/useGame'
 
 const Container = styled.div`
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: auto;
     justify-content: center;
     align-content: center;
     background-color: #1f4068;
@@ -16,14 +14,17 @@ const Container = styled.div`
 const Message = styled.p`
     color: white;
     font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
 `
 
 const MessageBar = () => {
-    const [state] = useContext<any>(GameContext)
+    const { message } = useGame()
 
     return (
         <Container>
-            <Message>{state.message}</Message>
+            <Message>{message}</Message>
         </Container>
     )
 }

@@ -2,12 +2,27 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const Container = styled.div`
-    background-color: #162447;
+import useGame from '../hooks/useGame'
+
+type ContainerProps = {
+    hasLost: boolean
+    hasWon: boolean
+}
+
+const Container = styled.div<ContainerProps>`
     display: grid;
     justify-items: center;
     align-items: center;
     border-radius: 1rem;
+    background-color: ${(props) => {
+        if (props.hasLost) {
+            return '#e94560'
+        } else if (props.hasWon) {
+            return 'green'
+        } else {
+            return '#162447'
+        }
+    }};
 
     &:hover {
         cursor: pointer;
@@ -21,8 +36,13 @@ const Image = styled.img`
     max-height: 95%;
 `
 
-const Card = ({ imgUri, onCardClick }) => {
-    return <Container onClick={onCardClick}>{<Image src={imgUri} />}</Container>
+const Card = ({ imgUrl, onClick }) => {
+    const { hasLost, hasWon } = useGame()
+    return (
+        <Container hasLost={hasLost} hasWon={hasWon} onClick={onClick}>
+            {<Image src={imgUrl} />}
+        </Container>
+    )
 }
 
 export default Card

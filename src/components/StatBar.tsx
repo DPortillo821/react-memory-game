@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
 import Stopwatch from './Stopwatch'
 
-import { GameContext } from '../contexts/GameContext'
+import useGame from '../hooks/useGame'
 
 import { formatTime } from '../utils/formattingUtils'
 
@@ -29,15 +29,15 @@ const FastestTime = styled.p`
 `
 
 const StatBar = () => {
-    const [state] = useContext<any>(GameContext)
+    const { currentScore, fastestCompletionTime } = useGame()
 
     return (
         <Container>
             <Stopwatch />
             <FastestTime>
-                Fastest Time: {formatTime(state.fastestCompletionTime)}s
+                Fastest Time: {formatTime(fastestCompletionTime)}s
             </FastestTime>
-            <Score>Score: {state.currentScore}</Score>
+            <Score>Score: {currentScore}</Score>
         </Container>
     )
 }
