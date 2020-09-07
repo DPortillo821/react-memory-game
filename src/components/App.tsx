@@ -10,7 +10,7 @@ import { GameProvider } from '../contexts/GameContext'
 
 const Container = styled.div`
     display: grid;
-    grid-template-rows: auto 8fr 1fr;
+    grid-template-rows: auto 8fr 1.5fr;
     height: 100%;
 `
 
