@@ -10,8 +10,8 @@ import useGame from '../hooks/useGame'
 
 const Container = styled.div`
     display: grid;
-    grid-template-rows: repeat(3, 250px);
-    grid-template-columns: repeat(3, 250px);
+    grid-template-rows: repeat(3, auto-fill);
+    grid-template-columns: repeat(3, minmax(auto, 250px));
     row-gap: 1rem;
     column-gap: 1rem;
     justify-content: center;
