@@ -33,9 +33,14 @@ const useGame = () => {
                     character.id,
                 ],
                 characters: shuffleArray(state.characters),
-                isStopwatchActive: true,
                 currentScore: state.currentScore + 1,
             }))
+            if (!state.isStopwatchActive) {
+                setState((state: Game) => ({
+                    ...state,
+                    isStopwatchActive: true,
+                }))
+            }
             if (state.message.length > 0) {
                 setState((state: Game) => ({
                     ...state,
@@ -59,10 +64,13 @@ const useGame = () => {
     }
 
     useEffect(() => {
-        setState((state: Game) => ({
-            ...state,
-            isStopwatchActive: false,
-        }))
+        if (state.isStopwatchActive) {
+            console.log('2')
+            setState((state: Game) => ({
+                ...state,
+                isStopwatchActive: false,
+            }))
+        }
 
         let timeout = 0
         if (state.hasLost || state.hasWon) {
@@ -72,21 +80,6 @@ const useGame = () => {
         }
         return () => clearInterval(timeout)
     }, [state.hasLost, state.hasWon])
-
-    useEffect(() => {
-        let interval = 0
-        if (state.isStopwatchActive) {
-            interval = setInterval(() => {
-                setState((state: Game) => ({
-                    ...state,
-                    runningTime: state.runningTime + 100,
-                }))
-            }, 100)
-        } else if (!state.isStopwatchActive && state.runningTime !== 0) {
-            clearInterval(interval)
-        }
-        return () => clearInterval(interval)
-    }, [state.isStopwatchActive, state.runningTime])
 
     useEffect(() => {
         if (
